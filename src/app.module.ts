@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MoviesController } from './movies/movies.controller';
 
 // [@decorator]
 // They're like a function on top of the class.
@@ -10,7 +9,6 @@ import { AppService } from './app.service';
 // 모듈은 앱에 필요한 것들을 import한다.
 @Module({
   imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [MoviesController], 
 })
 export class AppModule {}
