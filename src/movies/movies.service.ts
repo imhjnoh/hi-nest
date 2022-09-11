@@ -35,4 +35,5 @@ export class MoviesService {
         // 당연히 임시 데이터니까 이렇게 하는 거고, 베스트는 아니다.
         this.movies.push({...movie, ...updateData})
     }
+    // TODO search 기능 필요
 }

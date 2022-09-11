@@ -49,5 +49,57 @@ describe('MoviesService', () => {
       }
     })
   })
-  
+  describe("deleteOne()", () => {
+    it("deletes a movie", () => {
+      service.create({
+        title: "test movie",
+        genres: ['test'],
+        year: 2000
+      })
+      const beforeDelete = service.getAll().length
+      service.deleteOne(1)
+      const afterDelete = service.getAll().length
+      expect(afterDelete).toBeLessThan(beforeDelete)
+    })
+    it("should return a 404", () => {
+      try{
+        service.deleteOne(999)
+      }catch(e) {
+        expect(e).toBeInstanceOf(NotFoundException)
+      }
+    })
+  })
+  describe("create()", () => {
+    it("should return a movie", () => {
+      const beforeCreate = service.getAll().length
+      service.create({
+        title: "test movie",
+        genres: ['test'],
+        year: 2000
+      })
+      const afterCreate = service.getAll().length
+      console.log(beforeCreate, afterCreate);
+      expect(afterCreate).toBeGreaterThan(beforeCreate)
+    })
+  })
+  describe("update()", () => {
+    it("should update a movie", () => {
+      // 매번 생성하기 귀찮다면 beforeEach 에 넣으면 된다.
+      service.create({
+        title: "test movie",
+        genres: ['test'],
+        year: 2000
+      })
+      service.update(1, {title: "updated title"})
+      const movie = service.getOne(1)
+      expect(movie.title).toEqual('updated title')
+    })
+    it("should throw a NotFoundException", () => {
+      try{
+        service.update(999, {})
+      }catch(e){
+        expect(e).toBeInstanceOf(NotFoundException)
+      }
+    })
+  })
 });
